@@ -1,0 +1,36 @@
+<html>
+  <body>
+    <script>
+
+      function countdown(num) {
+        for(var i=0; i <= num; i+=1) {
+          setTimeout(function() {
+            alert(num - i);
+          }, i * 1000);
+        }
+      }
+
+      function countdownFixed1(num) {
+        for(var i = 0; i <= num; i+=1) {
+          (function(i) { 
+            setTimeout(function() {
+              alert(num - i);
+            }, i*1000);
+          })(i);
+        }
+      }
+
+      function countdownFixed2(num) {
+        for(var i=0; i <= num; i+=1) {
+          setTimeout(function(n) {
+            return function() { 
+              alert(num - n);
+            }
+          }(i), i * 1000);
+        }
+      }
+
+      countdownFixed2(5);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<html>
+  <body>
+    Code:
+    <pre>
+      &lt;div id="div1"&gt;
+        &lt;a href="#" id="anchor1"&gt;link 1&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;a href="#" id="anchor2" onclick="anchorClick2()"&gt;link 2&lt;/a&gt;
+      &lt;a href="#" id="anchor3"&gt;link 3&lt;/a&gt;
+      &lt;script&gt;
+        var div = document.getElementById('div1');
+        var anchor = document.getElementById('anchor1');
+        var anchor3 = document.getElementById('anchor3');
+
+        function divClick3() {
+          alert('div click 3');
+        }
+
+        function anchorClick2(e) {
+          console.log('click event added via onclick attribute in html, value of this: ');
+          console.log(this); // window object
+          alert('anchor click 2');
+        }
+
+        function anchorClick3(e) {
+          console.log('click event added via onclick attribute in js, value of this: ');
+          console.log(this); // target element
+          alert('anchor click 3');
+        }
+
+        div.addEventListener('click', function() {
+          alert('div click');
+        }, false);
+
+        div.addEventListener('click', function() {
+          alert('div click 2');
+        }, false);
+
+        div.addEventListener('click', divClick3, false);
+        div.addEventListener('click', divClick3, false); // duplicate event handler, gets discarded
+
+        anchor.addEventListener('click', function() {
+          console.log('click event added via addEventListener, value of this:');
+          console.log(this); // target element
+          alert('anchor click');
+
+        }, false);
+
+        anchor3.onclick = anchorClick3;
+
+      &lt;/script&gt;
+    </pre>
+    Output:
+    <div id="div1">
+      <a href="#" id="anchor1">link 1</a>
+    </div>
+    <a href="#" id="anchor2" onclick="anchorClick2()">link 2</a>
+    <a href="#" id="anchor3">link 3</a>
+    <script>
+      var div = document.getElementById('div1');
+      var anchor = document.getElementById('anchor1');
+      var anchor3 = document.getElementById('anchor3');
+
+      function divClick3() {
+        alert('div click 3');
+      }
+
+      function anchorClick2(e) {
+        console.log('click event added via onclick attribute in html, value of this: ');
+        console.log(this); // window object
+        alert('anchor click 2');
+      }
+
+      function anchorClick3(e) {
+        console.log('click event added via onclick attribute in js, value of this: ');
+        console.log(this); // target element
+        alert('anchor click 3');
+      }
+
+      div.addEventListener('click', function() {
+        alert('div click');
+      }, false);
+
+      div.addEventListener('click', function() {
+        alert('div click 2');
+      }, false);
+
+      div.addEventListener('click', divClick3, false);
+      div.addEventListener('click', divClick3, false); // duplicate event handler, gets discarded
+
+      anchor.addEventListener('click', function() {
+        console.log('click event added via addEventListener, value of this:');
+        console.log(this); // target element
+        alert('anchor click');
+
+      }, false);
+
+      anchor3.onclick = anchorClick3;
+
+    </script>
+  </body>
+</html>

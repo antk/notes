@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <style id="stylesheet1">
+      div { padding: 10px; border: 1px solid #ff0000; }
+      body { font-family: arial; }
+    </style>
+    <style id="stylesheet2">
+      p { padding: 10px; border: 1px solid #000; }
+    </style>
+  </head>
+  <body>
+    Code:
+    <pre>
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;style id="stylesheet1"&gt;
+            div { padding: 10px; border: 1px solid #ff0000; }
+            body { font-family: arial; }
+          &lt;/style&gt;
+          &lt;style id="stylesheet2"&gt;
+            p { padding: 10px; border: 1px solid #000; }
+          &lt;/style&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+          &lt;div id="someDiv"&gt;this is a div&lt;/div&gt;
+          &lt;p&gt;this is a p&lt;/p&gt;
+          &lt;script&gt;
+            var ss = document.styleSheets;
+            for(var i = 0; i &lt; ss.length; i++) {
+              for(var j = 0; j &lt; ss[i].cssRules.length; j++ ) {
+                ss[i].cssRules[j].style.paddingTop = '20px';
+              }
+            }
+
+            var sheet = document.createElement('style');
+            sheet.innerHTML = 'div { border: 5px solid blue; background-color: green; }';
+            document.getElementsByTagName('head')[0].appendChild(sheet);
+
+            var sheetToBeRemoved = document.getElementById('stylesheet1');
+            sheetToBeRemoved.parentNode.removeChild(sheetToBeRemoved);
+
+            document.getElementById('someDiv').style.padding = '20px';
+          &lt;/script&gt;
+        &lt;/body&gt;
+      &lt;/html&gt;
+    </pre>
+    Output:
+    <div id="someDiv">this is a div</div>
+    <p>this is a p</p>
+    <script>
+      var ss = document.styleSheets;
+      for(var i = 0; i < ss.length; i++) {
+        for(var j = 0; j < ss[i].cssRules.length; j++ ) {
+          ss[i].cssRules[j].style.paddingTop = '20px';
+        }
+      }
+
+      var sheet = document.createElement('style');
+      sheet.innerHTML = 'div { border: 5px solid blue; background-color: green; }';
+      document.getElementsByTagName('head')[0].appendChild(sheet);
+
+      var sheetToBeRemoved = document.getElementById('stylesheet1');
+      sheetToBeRemoved.parentNode.removeChild(sheetToBeRemoved);
+
+      document.getElementById('someDiv').style.padding = '20px';
+    </script>
+  </body>
+</html>

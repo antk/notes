@@ -1,0 +1,173 @@
+<html>
+  <head>
+    <style type="text/css">
+      body { font-family: arial, sans-serif; }
+      .qa { padding:5px 0; }
+      .qa .a { margin:10px 0; display:none; }
+      .qa .a pre { text-decoration:none; }
+    </style>
+  </head>
+  <body>
+    <h1>HTML</h1>
+    <ol>
+      <li class="qa">
+        <a class="q" href="#">What is a DTD?</a>
+        <div class="a">
+          Source: <a href="http://webdesign.about.com/cs/doctype/a/aa092500a.htm">http://webdesign.about.com/cs/doctype/a/aa092500a.htm</a><br/><br/>
+          Document Definition Type.<br/><br/>
+          A DTD in an XML or HTML document provides a list of the elements, attributes, comments, notes, and entities contained in the document. It also indicates their relationship to one another within the document. In other words, a DTD is the grammar of an XML or HTML document.
+        </div>
+      </li>
+    </ol>
+    <h1>CSS</h1>
+    <ol>
+      <li class="qa">
+        <a class="q" href="javascript:void(0)">What is the box model?</a>
+        <div class="a">
+          reference: <a href="http://www.w3schools.com/css/css_boxmodel.asp">http://www.w3schools.com/css/css_boxmodel.asp</a><br/><br/>
+          Every element is contained in a box.<br/><br/>
+          The CSS box model is essentially a box that wraps around HTML elements, and it consists of: margins, borders, padding, and the actual content.
+        </div>
+      </li>
+      <li class="qa">
+        <a class="q" href="javascript:void(0)">What is the width of an element defined by the following?</a>
+        <pre>
+          width:250px;
+          padding:10px;
+          border:5px solid gray;
+          margin:10px;
+        </pre>
+        <div class="a">
+          300 pixels.<br/><br/>
+          250px + 20px (left & right padding) + 10px (left & right border) + 20px (left & right margin)<br/><br/>
+          The total width of an element should always be calculated like this:
+          <br/><br/>
+          Total element width = width + left padding + right padding + left border + right border + left margin + right margin
+          <br/><br/>
+          The total height of an element should always be calculated like this:
+          <br/><br/>
+          Total element height = height + top padding + bottom padding + top border + bottom border + top margin + bottom margin
+        </div>
+      </li>
+      <li class="qa">
+        <a class="q" href="javascript:void(0)">Bonus: What is the width of the same element as rendered by IE 6?</a>
+        <div class="a">
+          250 pixels.  IE doesn't include padding and border in the calculation, so the calculation would be <br/><br/>
+          Total element width = width + left margin + right margin
+        </div>
+      </li>
+    </ol>
+    <h1>JavaScript</h1>
+    <ol>
+      <li class="qa" style="display:none">
+        <a class="q" href="javascript:void(0)">What are events (provide examples)?</a>
+        <div class="a">
+          
+        </div>
+      </li>
+      <li class="qa">
+        <a class="q" href="javascript:void(0)">Suppose I had the following:</a>
+        <pre>
+  &lt;div id="myDiv" onclick="alert('Hello World A!')"&gt;This is a div&lt;/div&gt;
+  
+  &lt;script type="text/javascript"&gt;
+    var myDiv = document.getElementById("myDiv");
+    
+    myDiv.onclick = function() {
+      alert("Hello World B!");
+    };
+    
+    myDiv.onclick = function() {
+      alert("Hello World C!");
+    };
+    
+    myDiv.addEventListener("click", function() {
+      alert("Hello World D!");
+    }, false);
+  &lt;/script&gt;
+        </pre>
+        What would the result of clicking on "myDiv"? Please explain.
+        <div class="a">
+          The browser will alert "Hello World C!", followed by "Hello World D!".  Attaching events via the onclick attribute will overwrite previously defined callbacks.  So the first onclick defined in the div tag's onclick attribute is overwritten by myDiv.onclick and never gets executed.<br/>
+          However, the addEventListener allows multiple event listeners on an element.  So when myDiv is clicked, all defined callbacks will execute.
+        </div>
+      </li>
+      <li class="qa">
+        <a class="q" href="javascript:void(0)">What is the result of the block of code below?</a>
+        <pre>
+  function update(num) {
+    return num += 10;
+  }
+  var foo = 100;
+  var bar = update(foo);
+  alert(bar);
+        </pre>
+        <div class="a">
+          The browser will alert 110.  The variable foo is passed as an argument to the function update, which will increment foo by 10.  The return value (110) is then assigned to bar and the global alert function is called to display it.
+        </div>
+      </li>
+      <li class="qa">
+        <a class="q" href="javascript:void(0)">What is the result of the block of code below?</a>
+        <pre>
+  (function() {
+    function update(num) {
+      return num += 10;
+    }
+    var foo = 100;
+    var bar = update(foo);
+  }());
+  alert(foo);
+        </pre>
+        <div class="a">
+          The browser will throw an error.  The immediate function in which foo resides creates a "sandbox" and variables defined within the scope of the immediate function are not globally accessible.
+        </div>
+      </li>
+      <li class="qa">
+        <a class="q" href="javascript:void(0)">Suppose I had an unordered list defined below.  Write some JavaScript to alert the contents of a list item when clicked.  For example, when I click item 2, the browser should alert "item 2".</a>
+        <pre>
+  &lt;ul id="myUL"&gt;
+      &lt;li&gt;item 1&lt;/li&gt;
+      &lt;li&gt;item 2&lt;/li&gt;
+      &lt;li&gt;item 3&lt;/li&gt;
+      &lt;li&gt;item 4&lt;/li&gt;
+  &lt;/ul&gt;
+        </pre>
+        <div class="a">
+          <pre>
+  var myUL = document.getElementById("myUL");
+  var items = myUL.getElementsByTagName("li");
+  for(var i=0; i&lt;items.length; i++){
+      items[i].addEventListener("click", function(n){
+          return function(){alert(n+1);}
+      }(i), false); 
+  }
+          </pre>
+          this is the way that scoping works in JavaScript.  The anonymous callback function in the addEventListener method has a reference to the variable i, but not it's value.  to compensate, another anonymous function (a closure) needs to be defined so that the value is accessible.<br/><br/>
+Alternatively, this could be done by doing
+        <pre>
+          document.getElementById("myUL").onclick = function(e) { alert(e.target.innerHTML); };
+        </pre>
+        although the click event is assigned specifically to the element myUL, this also works because e.target returns the HTML element that the event took place on.
+        </div>
+      </li>
+    </ol>
+    
+    <script type="text/javascript">
+      var lis = document.getElementsByTagName("li");
+      var i = lis.length-1;
+      do {
+        if(lis[i].className.indexOf("qa") >= 0){
+          //console.log(lis[i].innerHTML);
+          var q = lis[i].getElementsByTagName("a")[0];
+          var a = lis[i].getElementsByTagName("div")[0];
+          q.addEventListener("click", function(a){
+            return function(){
+              console.log(a.innerHTML);
+              a.style.display = a.style.display=="block" ? "none" : "block"; 
+            }
+          }(a), false);
+        }
+      } while(i--)
+    </script>
+  </body>
+</html>

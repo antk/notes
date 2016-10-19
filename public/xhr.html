@@ -1,0 +1,19 @@
+<html>
+  <body>
+    <script>
+      var xhr = new XMLHttpRequest();
+      xhr.addEventListener('load', function() {
+        var json = this.responseText;
+        var data = JSON.parse(json);
+        console.log(data.key);
+        console.log(this.status);
+        console.log(this.getResponseHeader('X-custom-response-header'));
+      });
+      xhr.open('GET', '/data');
+      xhr.setRequestHeader('X-custom-request-header', 'abc'); // set a custom request header and value to the server
+                                                              // server will respond with the value in a custom response header
+                                                              // refer to app.js
+      xhr.send();
+    </script>
+  </body>
+</html>
