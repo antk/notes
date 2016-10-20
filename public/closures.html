@@ -1,5 +1,50 @@
 <html>
   <body>
+    <style>
+      a { display: block; margin: 0 0 15px 0; }
+    </style>
+
+    Countdown broken.  Always outputs -1.
+    <pre>
+      function countdown(num) {
+        for(var i=0; i &lt;= num; i+=1) {
+          setTimeout(function() {
+            alert(num - i);
+          }, i * 1000);
+        }
+      }
+    </pre>
+
+    Countdown fixed 1.  Using closure.
+    <pre>
+      function countdownFixed1(num) {
+        for(var i = 0; i &lt;= num; i+=1) {
+          (function(i) { 
+            setTimeout(function() {
+              alert(num - i);
+            }, i*1000);
+          })(i);
+        }
+      }
+    </pre>
+
+    Countdown fixed 2.  Using closure.
+    <pre>
+      function countdownFixed2(num) {
+        for(var i=0; i &lt;= num; i+=1) {
+          setTimeout(function(n) {
+            return function() { 
+              alert(num - n);
+            }
+          }(i), i * 1000);
+        }
+      }
+    </pre>
+
+    <a href="#" onclick="countdown(5)">countdown broken</a>
+    <a href="#" onclick="countdownFixed1(5)">countdown fixed 1</a>
+    <a href="#" onclick="countdownFixed2(5)">countdown fixed 2</a>
+
     <script>
 
       function countdown(num) {
@@ -30,7 +75,7 @@
         }
       }
 
-      countdownFixed2(5);
+      
     </script>
   </body>
 </html>
