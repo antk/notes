@@ -1,0 +1,75 @@
+<html>
+  <body>
+    Given an array of n positive and negative integers, move negative integers to the left and positive integers to the right.  Do this in O(n) time and do it in memory (do not create a temporary array).  For example:
+    <br/><br/>
+    Before:  [1, -1, -2, -3, 4, 6, -4, -8, 9]<br/>
+    After: [-1, -2, -3, -4, -8, 1, 4, 6, 9]
+    <pre>
+      function a(arr) {
+        var swapPos = 0;
+        for(var i = 0; i &lt; arr.length; i++) {
+          var currElem = arr[i];
+          var swapElem = arr[swapPos];
+          if(currElem &lt; 0) {
+            arr[i] = swapElem;
+            arr[swapPos] = currElem;
+            swapPos++;
+          }
+        }
+        return arr.sort(function(a,b) { return a - b; });
+      }
+    </pre>
+    <script>
+      // approach:
+      // maintain the position for negative numbers (swapPos)
+      // they need to be on the left, so start it at index 0
+      // iterate over each element of the array
+      // if it's negative, swap it with the element at swapPos
+      // increment swapPos because the previous swapPos position now has a negative number
+      function a(arr) {
+        var swapPos = 0;
+        for(var i = 0; i < arr.length; i++) {
+          var currElem = arr[i];
+          var swapElem = arr[swapPos];
+          if(currElem < 0) {
+            arr[i] = swapElem;
+            arr[swapPos] = currElem;
+            swapPos++;
+          }
+        }
+        return arr.sort(function(a,b) { return a - b; });
+      }
+
+      // recursion, but not necessary and doesn't really add a whole lot of elegance
+      function b(arr, index, swapPos) {
+        if(index == arr.length - 1) {
+          return arr.sort(function(a,b) { return a - b; });
+        }
+        else {
+          var currElem = arr[index];
+          var swapElem = arr[swapPos];
+          if(currElem < 0) {
+            arr[index] = swapElem;
+            arr[swapPos] = currElem;
+            swapPos++;
+          }
+        }
+        index++;
+
+        b(arr, index, swapPos);
+      }
+
+      var a1 = [1, -1, -2, -3, 4, 6, -4, -8, 9];
+      console.log(a1+'');
+      a(a1);
+      console.log(a1+'');
+
+      var a2 = [3, -2, -5, 3, -2, 9, -1, -7, 9, 4];
+      console.log(a2+'');
+      b(a2, 0, 0);
+      console.log(a2+'');
+
+      
+    </script>
+  </body>
+</html>

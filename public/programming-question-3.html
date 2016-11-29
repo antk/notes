@@ -1,0 +1,57 @@
+<html>
+  <body>
+    <script>
+      function Register() {
+        this.drawer = {
+          "bills": {
+            "100": 10,
+            "50": 10,
+            "20": 10,
+            "10": 10,
+            "5": 10,
+            "1": 10
+          },
+          "coins": {
+            "1": 10,
+            "5": 10,
+            "10": 10,
+            "25": 10
+          }
+        }
+      }
+
+      Register.prototype.makeChange = function(total, amtReceived) {
+        var change = amtReceived - total;
+        if(change > 0) {
+          var bills = Math.floor(change);
+          var coins = (change % 1).toFixed(2);
+          var theChange = {};
+
+          console.log("total: " + total);
+          console.log("amt: " + amtReceived);
+          console.log("change: " + change);
+          console.log("bills: " + bills);
+          console.log("coins: " + coins);
+
+
+          for(var bill in this.drawer.bills) {
+
+          }
+
+          console.log(theChange);
+        }
+        else {
+          console.log("came up short");
+        }
+
+        
+
+
+
+      }
+
+      var r = new Register();
+      r.makeChange(43.26, 100);
+    </script>
+  </body>
+</html>

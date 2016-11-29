@@ -1,0 +1,53 @@
+<html>
+  <body>
+  Write a recursive function to traverse the dom (or a dom fragment)
+
+  <div id="div1">
+    <h1>heading</h1>
+    <div id="div2">
+      <a href="#">a link</a>
+    </div>
+  </div>
+
+  <pre>
+    &lt;div id="div1"&gt;
+      &lt;h1&gt;heading&lt;/h1&gt;
+      &lt;div id="div2"&gt;
+        &lt;a href="#"&gt;a link&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+      function walkDom(node) {
+        if(node.nodeType !== 3) { // text node
+          console.log(node.tagName);
+        }
+        node = node.firstChild;
+        while(node) {
+          walkDom(node);
+          node = node.nextSibling;
+        }
+      }
+
+      var elem = document.getElementById('div1');
+      walkDom(elem);
+    &lt;/script&gt;
+  </pre>
+
+  <script>
+    function walkDom(node) {
+      if(node.nodeType !== 3) { // text node
+        console.log(node.tagName);
+      }
+      node = node.firstChild;
+      while(node) {
+        walkDom(node);
+        node = node.nextSibling;
+      }
+    }
+
+    var elem = document.getElementById('div1');
+    walkDom(elem);
+  </script>
+  </body>
+</html>
