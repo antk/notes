@@ -1,0 +1,63 @@
+<html>
+	<body>
+		find eq pt - the point at which elements to the left of equillibrium point equal the elements to the right.
+
+		for example, for the array [2, 3, -1, 5], the equillibrium point is index 2.  2+3 = 5
+
+		brute force - O(n^2):
+
+		<pre>
+		function eq1(arr) {
+			var eqPt = 1;
+			for(var i=0; i&lt;arr.length &amp;&amp; eqPt &lt; arr.length-1; i++) {
+				var lSum = 0;
+				var rSum = 0;
+				for(var j=0; j&lt;eqPt; j++) {
+					lSum += arr[j];
+				}
+				for(var k=eqPt+1; k&lt;arr.length; k++) {
+					rSum += arr[k];
+				}
+				if(lSum === rSum) {
+					return eqPt;
+				}
+				eqPt++;
+			}
+			return -1;	
+		}
+		</pre>
+
+		O(n):
+
+		go through array of elements and get sum for left and right of initial equillibrium point 1st time
+		after 1st time, we will already know the first sum of the left side and right side, so just increment index and add the prev integer to left sum
+		and subtract the integer at eq pt from the right sum
+
+		<pre>
+		function eq2(arr) {
+			var eqPt = 1;
+			var lSum = 0;
+			var rSum = 0;
+			for(var i=0; i&lt;arr.length &amp;&amp; eqPt &lt; arr.length-1; i++) {
+				if(eqPt == 1) {
+					for(var j=0; j&lt;eqPt; j++) {
+						lSum += arr[j];
+					}
+					for(var k=eqPt+1; k&lt;arr.length; k++) {
+						rSum += arr[k];
+					}
+				}
+				else {
+					lSum += arr[eqPt-1];
+					rSum -= arr[eqPt];
+				}
+				if(lSum == rSum) {
+					return eqPt;
+				}
+				eqPt++;
+			}
+			return -1;
+		}
+		</pre>
+	</body>
+</html>
